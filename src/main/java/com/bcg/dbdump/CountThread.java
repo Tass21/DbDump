@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import com.bcg.dbdump.util.DateUtil;
 
-// public class CountTherad implements Runnable {
 public class CountThread extends Thread {
 
 	private final static Logger logger = Logger.getLogger(CountThread.class);
@@ -34,14 +33,15 @@ public class CountThread extends Thread {
 		String[] timeArr = null;
 		String dd = "",HH = "",mm = ""; 
 		
-//      while (true) {  // run with main(String[] args) method 
+//		while (true) {  // run with main(String[] args) method 
 		while (!Thread.currentThread().isInterrupted()) {
 			try {
 				nowTime = DateUtil.formattedDateNow("yyyy MM dd HH mm ss");
-				if (nowTime.equals(oldTime)) break;
+//				if (nowTime.equals(oldTime)) break;
 				
 				FileUtils.writeStringToFile(workFile, "Every 1 Seconds " + nowTime + "\r\n", Charset.forName("UTF-8"), true);
-				
+//				logger.debug("Every 1 Seconds " + nowTime);				
+
 				oldTime = nowTime;
 				timeArr = nowTime.split(" ");
 				dd = timeArr[2];
