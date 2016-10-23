@@ -30,27 +30,22 @@ public class CountThread extends Thread {
 	@Override
 	public void run() {
 		String nowTime = "";
-		String[] timeArr = null;
 		String dd = "",HH = "",mm = ""; 
 		
 //		while (true) {  // run with main(String[] args) method 
 		while (!Thread.currentThread().isInterrupted()) {
 			try {
-				nowTime = DateUtil.formattedDateNow("yyyy MM dd HH mm ss");
-//				if (nowTime.equals(oldTime)) break;
-				
-				FileUtils.writeStringToFile(workFile, "Every 1 Seconds " + nowTime + "\r\n", Charset.forName("UTF-8"), true);
-//				logger.debug("Every 1 Seconds " + nowTime);				
-
-				oldTime = nowTime;
-				timeArr = nowTime.split(" ");
-				dd = timeArr[2];
-				HH = timeArr[3];
-				mm = timeArr[4];
-				
-				if (mm.equals("05") ||  mm.equals("20") ||  mm.equals("35") ||  mm.equals("50")) {
+				nowTime = DateUtil.formattedDateNow("yyyy MM dd HH mm");
+				if (!nowTime.equals(oldTime)) {
+					String[] timeArr = nowTime.split(" ");
+					dd = timeArr[2];
+					HH = timeArr[3];
+					mm = timeArr[4];
+					if (mm.equals("05") ||  mm.equals("20") ||  mm.equals("35") ||  mm.equals("50")) {
+						FileUtils.writeStringToFile(workFile, "Every 1 Seconds " + nowTime + "\r\n", Charset.forName("UTF-8"), true);
+					}
 				}
-				
+				oldTime = nowTime;
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
